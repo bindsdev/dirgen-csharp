@@ -4,7 +4,7 @@ namespace Dirgen
     {
         public static void Execute()
         {
-            var filesToCreate = Prompt.Input<List<string>>("Enter filenames here, including extensions");
+            var filesToCreate = Prompt.List<string>("Enter filenames here, including extensions");
 
             foreach (var filename in filesToCreate)
             {
