@@ -1,13 +1,15 @@
-﻿using Sharprompt;
+﻿global using Sharprompt;
 using Dirgen;
 
-var toCreate = Prompt.Input<string>("What do you want to create?");
+var toGenerate = Prompt.Input<string>("What do you want to generate?");
 
-switch (toCreate) 
+switch (toGenerate)
 {
-    case "files":
+    case "files" or "file":
+        GenerateFiles.Execute();
         break;
-    case "directories" or "folders":
+    case "directories" or "folders" or "directory" or "folder":
+        GenerateDirectories.Execute();
         break;
     default:
         throw new ArgumentOutOfRangeException();
