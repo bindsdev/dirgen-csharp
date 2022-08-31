@@ -6,13 +6,17 @@ namespace Dirgen
         {
             var where = Prompt.Input<string>("Where do you want to generate these directories? Insert a path.", defaultValue: "./");
 
-            try
+            if (!where.Equals("./"))
             {
-                Directory.SetCurrentDirectory(where);
-            }
-            catch (DirectoryNotFoundException)
-            {
-                Console.WriteLine("The specified directory does not exist.");
+                try
+                {
+                    Directory.SetCurrentDirectory(where);
+                }
+                catch (DirectoryNotFoundException)
+                {
+                    Console.WriteLine("The specified directory does not exist.");
+                    return;
+                }
             }
 
             var dirsToCreate = Prompt.List<string>("Enter directory names");
