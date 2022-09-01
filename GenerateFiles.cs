@@ -1,10 +1,12 @@
+using Sharprompt;
+
 namespace Dirgen
 {
     public class GenerateFiles
     {
         public static void Execute()
         {
-            var where = Prompt.Input<string>("Where do you want to generate these files? Insert a path.", defaultValue: "./");
+            var where = Prompt.Input<string>("Where do you want to generate these file(s)? Insert a path", defaultValue: "./");
 
             if (!where.Equals("./"))
             {
@@ -19,15 +21,15 @@ namespace Dirgen
                 }
             }
 
-            var filesToCreate = Prompt.List<string>("Enter filenames, including extensions");
-            uint filesCreatedCount = 0;
+            var filesToGenerate = Prompt.List<string>("Enter filenames, including extensions");
+            uint filesGeneratedCount = 0;
 
-            foreach (var filename in filesToCreate)
+            foreach (var filename in filesToGenerate)
             {
                 if (!File.Exists(filename))
                 {
                     File.Create(filename);
-                    filesCreatedCount += 1;
+                    filesGeneratedCount += 1;
                 }
                 else
                 {
@@ -36,7 +38,7 @@ namespace Dirgen
                 }
             }
 
-            Console.WriteLine($"Created {filesCreatedCount} file(s) in \"{Directory.GetCurrentDirectory()}\"!");
+            Console.WriteLine($"Generated {filesGeneratedCount} file(s) in \"{Directory.GetCurrentDirectory()}\"!");
         }
     }
 }

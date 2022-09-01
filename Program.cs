@@ -1,18 +1,19 @@
-﻿global using Sharprompt;
-using Dirgen;
+﻿using Dirgen;
+using Sharprompt;
+using System.ComponentModel.DataAnnotations;
 
 Prompt.ThrowExceptionOnCancel = true;
 
 try
 {
-    var toGenerate = Prompt.Input<string>("What do you want to generate?");
+    var toGenerate = Prompt.Select<GenerateOptions>("What do you want to generate?");
 
     switch (toGenerate)
     {
-        case "files" or "file":
+        case GenerateOptions.Files:
             GenerateFiles.Execute();
             break;
-        case "directories" or "folders" or "directory" or "folder":
+        case GenerateOptions.Directories:
             GenerateDirectories.Execute();
             break;
         default:
@@ -21,5 +22,13 @@ try
 }
 catch (PromptCanceledException)
 {
-    Console.WriteLine("Prompt cancelled");
+    Console.WriteLine("Prompt cancelled.");
+}
+
+enum GenerateOptions
+{
+    [Display(Name = "Files")]
+    Files,
+    [Display(Name = "Directories")]
+    Directories,
 }
